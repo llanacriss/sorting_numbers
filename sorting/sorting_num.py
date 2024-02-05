@@ -4,8 +4,13 @@ from tkinter.messagebox import showerror
 from timeit import default_timer as timer
 from unittest import *
 
-#Сортировка пузырьком
+
 def bubble_sort(list):
+    """
+    Функция принимает список целых чисел. Возвращает список чисел, отсортированный пузырьком.
+    :param list: list
+    :return: list
+    """
     last_elem_index = len(list) - 1
     for passNo in range(last_elem_index, 0, -1):
         for i in range(passNo):
@@ -13,8 +18,13 @@ def bubble_sort(list):
                 list[i], list[i+1] = list[i+1], list[i]
     return list
 
-#Сортировка подсчетом
 def counting_sort(list, largest):
+    """
+    Функция принимает список натуральных чисел. Возвращает список чисел, отсортированный методом подсчета.
+    :param list: list
+    :param largest: int
+    :return: list
+    """
     c = [0]*(largest + 1)
     for i in range(len(list)):
         c[list[i]] = c[list[i]] + 1
@@ -28,9 +38,15 @@ def counting_sort(list, largest):
         c[x] = c[x] - 1
     return result
 
-#Две функции для пирамидальной сортировки
-#Функция преобразования в двоичную кучу
 def heapify(list, n, i):
+    """
+    Функция преобразования списка в двоичную кучу, принимает список целых чисел, размер кучи, корневой индекс.
+    Возвращает список.
+    :param list:
+    :param n: int
+    :param i: int
+    :return: list
+    """
     largest = i
     left = 2 * i + 1
     right = 2 * i + 2
@@ -42,8 +58,12 @@ def heapify(list, n, i):
         list[i], list[largest] = list[largest], list[i]
         heapify(list, n, largest)
 
-#Пирамидальная сортировка
 def heap_sort(list):
+    """
+    Функция принимает список целых чисел. Возвращает список чисел, отсортированный пирамидальным методом.
+    :param list:
+    :return: list
+    """
     n = len(list)
     for i in range(n, -1, -1):
         heapify(list, n, i)
@@ -52,8 +72,12 @@ def heap_sort(list):
         heapify(list, i, 0)
     return list
 
-#Сортировка слиянием
 def merge_sort(list):
+    """
+    Функция принимает список целых чисел. Возвращает список чисел, отсортированный методом слияния.
+    :param list:
+    :return: list
+    """
     if len(list) > 1:
         mid = len(list) // 2
         left = list[:mid]
@@ -82,8 +106,12 @@ def merge_sort(list):
             c += 1
         return list
 
-#Быстрая сортировка
 def quick_sort(list):
+    """
+    Функция принимает список целых чисел. Возвращает список чисел, отсортированный быстрой сортировкой.
+    :param list:
+    :return: list
+    """
     if len(list) < 2:
         return list
     else:
@@ -92,8 +120,12 @@ def quick_sort(list):
         greater = [i for i in list[1:] if i > pivot]
         return quick_sort(less) + [pivot] + quick_sort(greater)
 
-#Поразрядная сортирока
 def radix_sort(list):
+    """
+    Функция принимает список натуральных чисел. Возвращает список чисел, отсортированный поразрядно.
+    :param list:
+    :return: list
+    """
     max_digit = max([len(str(num)) for num in list])
     radix = 10
     lists = [[] for i in range(radix)]
@@ -105,9 +137,11 @@ def radix_sort(list):
         lists = [[] for i in range(radix)]
     return list
 
-
-#Действия, происходящие по нажатию кнопки "Start"
 def click():
+    """
+    Главная функция программы - действие по кнопке "Start". Функция ничего не возвращает.
+    :return: None
+    """
     try:
         my_list = [int(x) for x in entry.get().split(',')]
         m = max(my_list)
@@ -189,4 +223,3 @@ time_label = ttk.Label()
 time_label.pack(anchor=tkinter.NW, padx=6, pady=6)
 
 window.mainloop()
-
