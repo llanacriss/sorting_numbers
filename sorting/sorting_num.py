@@ -2,7 +2,6 @@ import tkinter
 from tkinter import ttk
 from tkinter.messagebox import showerror
 from timeit import default_timer as timer
-from unittest import *
 
 
 def bubble_sort(list):
@@ -146,12 +145,15 @@ def click():
         my_list = [int(x) for x in entry.get().split(',')]
         m = max(my_list)
         if combobox.get() == 'Пузырьком':
+            #Вывод результата сортировки
             label['text'] = bubble_sort(my_list)
             start = timer()
             bubble_sort(my_list)
             end = timer()
+            #Вывод времени, затраченного на сортировку
             time_label['text'] = 1000000 * (end - start)
         elif combobox.get() == 'Подсчетом':
+            #Вывод предупреждения
             warning_label = ttk.Label(
                 text='Сортировка Подсчетом производит сортировку только \nдля натуральных чисел. \n'
                      'При применении данной сортировки для целых отрицательных \nчисел, результат сортировки '
@@ -192,31 +194,38 @@ def click():
             end = timer()
             time_label['text'] = 1000000 * (end - start)
     except:
+        #Вывод окна с ошибкой
         showerror(title='Ошибка', message='Необходимо ввести целые числа через запятую!')
 
+#Создание окна
 window = tkinter.Tk()
 window.title('Сортировка чисел')
 window.geometry("450x450")
 
+#Создание поля ввода
 entry_label = ttk.Label(window, text='Введите целые числа через запятую: ')
 entry_label.pack(anchor=tkinter.W, padx=8, pady=8)
 entry = ttk.Entry(window)
 entry.pack(anchor=tkinter.W, padx=8, pady=8)
 
+#Создание выпадающего списка со списком сортировок
 sorting = ['Пузырьком', 'Подсчетом', 'Пирамидальная', 'Слиянием', 'Быстрая', 'Поразрядная']
 combobox_label = ttk.Label(window, text='Выберите способ сортировки: ')
 combobox_label.pack(anchor=tkinter.W, padx=8, pady=8)
 combobox = ttk.Combobox(window, values=sorting)
 combobox.pack(anchor=tkinter.W, padx=8, pady=8)
 
+#Создание кнопки "Start"
 button = ttk.Button(window, text='Start', command=click)
 button.pack(anchor=tkinter.W, padx=8, pady=8)
 
+#Вывод результата сортировки
 res_label = ttk.Label(text='Результат сортировки: ')
 res_label.pack(anchor=tkinter.NW, padx=6, pady=6)
 label = ttk.Label()
 label.pack(anchor=tkinter.NW, padx=6, pady=6)
 
+#Вывод времени, затраченного на сортировку
 res2_label = ttk.Label(text='Время, затраченное на сортировку (в микросекундах): ')
 res2_label.pack(anchor=tkinter.NW, padx=6, pady=6)
 time_label = ttk.Label()
